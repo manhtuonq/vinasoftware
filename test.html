@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photo Album - 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#6366f1',
+                        'dark': '#0f0f23',
+                        'card': '#1a1a2e'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .photo-grid {
+            columns: 4;
+            column-gap: 1rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .photo-grid {
+                columns: 3;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .photo-grid {
+                columns: 2;
+                column-gap: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .photo-grid {
+                columns: 1;
+            }
+        }
+        
+        .photo-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-backdrop {
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-dark via-purple-900 to-dark text-white min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent animate-float">
+                    📸 My Album 2025
+                </h1>
+                <div class="flex items-center space-x-4">
+                    <button onclick="filterPhotos('all')" class="filter-btn bg-accent/40 hover:bg-accent/60 px-4 py-2 rounded-full transition-all duration-300 text-sm">
+                        Tất cả
+                    </button>
+                    <button onclick="filterPhotos('nature')" class="filter-btn bg-accent/20 hover:bg-green-500/40 px-4 py-2 rounded-full transition-all duration-300 text-sm">
+                        Thiên nhiên
+                    </button>
+                    <button onclick="filterPhotos('city')" class="filter-btn bg-accent/20 hover:bg-blue-500/40 px-4 py-2 rounded-full transition-all duration-300 text-sm">
+                        Thành phố
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 animate-slide-up">
+                <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                    Kỷ Niệm Đẹp
+                </span>
+            </h2>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 animate-fade-in" style="animation-delay: 0.3s;">
+                Bộ sưu tập những khoảnh khắc quý giá
+            </p>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="photo-grid" id="photoGrid">
+                <!-- Nature Photos -->
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="Decorate laptops one.jpg" alt="Bình minh trên núi" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Bình minh trên núi</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="Decorate laptops two.jpg" alt="Phố đêm sôi động" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Phố đêm sôi động</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="lap top three.jpg" alt="Rừng xanh mướt" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Rừng xanh mướt</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="laptop foure.jpg" alt="Kiến trúc hiện đại" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Kiến trúc hiện đại</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=400&fit=crop" alt="Hoàng hôn biển" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Hoàng hôn biển</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=400&h=350&fit=crop" alt="Cầu vượt đêm" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Cầu vượt đêm</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=650&fit=crop" alt="Thác nước hùng vĩ" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Thác nước hùng vĩ</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=450&fit=crop" alt="Góc phố cổ" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Góc phố cổ</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=550&fit=crop" alt="Cánh đồng hoa" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Cánh đồng hoa</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop" alt="Sương mù núi đồi" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Sương mù núi đồi</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=600&fit=crop" alt="Đường phố Tokyo" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Đường phố Tokyo</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=400&h=450&fit=crop" alt="Rặng san hô" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Rặng san hô</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=550&fit=crop" alt="Cao ốc Manhattan" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Cao ốc Manhattan</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item nature bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=400&fit=crop" alt="Hồ núi tĩnh lặng" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-green-500/80 text-white text-xs rounded-full mb-2">🌿 Thiên nhiên</span>
+                            <h3 class="text-white font-semibold text-sm">Hồ núi tĩnh lặng</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="photo-item city bg-card/50 glass rounded-xl overflow-hidden hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=400&h=350&fit=crop" alt="Cầu cảng hiện đại" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-3 left-3 right-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <span class="inline-block px-2 py-1 bg-blue-500/80 text-white text-xs rounded-full mb-2">🏙️ Thành phố</span>
+                            <h3 class="text-white font-semibold text-sm">Cầu cảng hiện đại</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="glass rounded-2xl p-6 max-w-4xl w-full mx-4 animate-fade-in">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+                    <button onclick="closeModal()" class="text-4xl hover:text-accent transition-colors">
+                        ×
+                    </button>
+                </div>
+                <img id="modalImage" class="w-full h-auto rounded-xl" src="" alt="">
+                <p id="modalDesc" class="mt-4 text-gray-300"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterPhotos(category) {
+            const photos = document.querySelectorAll('.photo-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update button styles
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-accent/40');
+                btn.classList.add('bg-accent/20');
+            });
+            event.target.classList.remove('bg-accent/20');
+            event.target.classList.add('bg-accent/40');
+            
+            // Filter photos with animation
+            photos.forEach((photo, index) => {
+                if (category === 'all' || photo.classList.contains(category)) {
+                    photo.style.display = 'block';
+                    photo.style.opacity = '0';
+                    setTimeout(() => {
+                        photo.style.opacity = '1';
+                    }, index * 50);
+                } else {
+                    photo.style.opacity = '0';
+                    setTimeout(() => {
+                        photo.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        function openModal(title, image, description) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalImage = document.getElementById('modalImage');
+            const modalDesc = document.getElementById('modalDesc');
+
+            modalTitle.textContent = title;
+            modalImage.src = image;
+            modalImage.alt = title;
+            modalDesc.textContent = description;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Add click events to all photos
+        document.addEventListener('DOMContentLoaded', () => {
+            const photos = document.querySelectorAll('.photo-item');
+            photos.forEach(photo => {
+                photo.addEventListener('click', () => {
+                    const img = photo.querySelector('img');
+                    const title = photo.querySelector('h3').textContent;
+                    openModal(title, img.src, 'Khoảnh khắc tuyệt đẹp được lưu giữ');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
